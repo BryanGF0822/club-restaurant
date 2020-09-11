@@ -6,7 +6,9 @@ public class Order {
 	
 	private String code;
 	private Date fecha_y_hora;
-	//codigo del cliente
-	//nit del restaurante	
+	private int customerCode;
+	private StatusOrder status;
+	// y una lista de productos ordenados...¿preguntar?
+	
 
 }

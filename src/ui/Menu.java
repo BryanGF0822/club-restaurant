@@ -1,15 +1,21 @@
 package ui;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
-
 import model.TuDomicilio;
 
 public class Menu {
-	
+
 	public static final int EXIT = 5;
 
 	private Scanner sc;
-	private TuDomicilio tuDomi;
+	private static TuDomicilio tuDomi;
 
 	public Menu() {
 
@@ -18,15 +24,15 @@ public class Menu {
 	}
 
 	public void startMenu() {
-		
+
 		String menu = getMenuText();
 		int option;
-		
+
 		do {
 			System.out.println(menu);
 			option = readOption();
 			operation(option);
-		}while(option != EXIT);
+		} while (option != EXIT);
 	}
 
 	private String getMenuText() {
@@ -59,21 +65,48 @@ public class Menu {
 			break;
 
 		case 2:
-			
+
 			break;
-		
+
 		case 3:
-			
+
 			break;
-			
+
 		case 4:
-			
+
 			break;
-			
+
 		case 5:
-			
+
 			break;
-			
+
 		}
+	}
+
+	private static void guardarDatos() throws IOException {
+
+		File f = new File("archivos/datos.dat");
+		if (f.exists() == false) {
+			f.createNewFile();
+		}
+
+		ObjectOutputStream exportar = new ObjectOutputStream(new FileOutputStream(f));
+		exportar.writeObject(tuDomi);
+		exportar.close();
+
+	}
+
+	private static TuDomicilio cargarDatos() throws FileNotFoundException, IOException, ClassNotFoundException {
+
+		TuDomicilio td = null;
+		File f = new File("archivos/datos.dat");
+		if (f.exists() == true) {
+			ObjectInputStream importar = new ObjectInputStream(new FileInputStream(f));
+			td = (TuDomicilio) importar.readObject();
+			importar.close();
+		} else {
+			td = new TuDomicilio();
+		}
+		return td;
 	}
 }

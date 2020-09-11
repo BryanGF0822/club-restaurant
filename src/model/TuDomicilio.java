@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TuDomicilio {
+public class TuDomicilio implements Serializable {
 	
 	private List<Restaurant> restaurants;
 	
@@ -16,6 +17,8 @@ public class TuDomicilio {
 		return restaurants;
 	}
 	
-	
+	public void addRestaurant() {
+		
+	}
 
 }

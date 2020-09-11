@@ -1,17 +1,20 @@
 package model;
 
 public class Customer {
-	
+
 	private IndentificationType typeOfId;
 	private int idNumber;
-	private String fullName;
+	private String name;
+	private String lastName;
 	private int phoneNumber;
 	private String address;
-	
-	public Customer(IndentificationType typeOfId, int idNumber, String fullName, int phoneNumber, String address) {
+
+	public Customer(IndentificationType typeOfId, int idNumber, String name, String lastName, int phoneNumber,
+			String address) {
 		this.typeOfId = typeOfId;
 		this.idNumber = idNumber;
-		this.fullName = fullName;
+		this.name = name;
+		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 	}
@@ -32,12 +35,20 @@ public class Customer {
 		this.idNumber = idNumber;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public int getPhoneNumber() {
@@ -55,8 +66,6 @@ public class Customer {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	
 	
 	
 }
