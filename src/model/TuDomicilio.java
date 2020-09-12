@@ -17,8 +17,10 @@ public class TuDomicilio implements Serializable {
 		return restaurants;
 	}
 	
-	public void addRestaurant() {
+	public void addRestaurant(String na, String ni, String admin) {
 		
+		Restaurant newRest = new Restaurant(na, ni, admin);
+		restaurants.add(newRest);
 	}
 
 }

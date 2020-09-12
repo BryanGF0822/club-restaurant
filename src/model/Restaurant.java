@@ -6,12 +6,12 @@ import java.util.List;
 public class Restaurant {
 	
 	private String name;
-	private int nit;
+	private String nit;
 	private String adminName;
 	
 	private List<Product> products;
 	
-	public Restaurant(String name, int nit, String adminName) {
+	public Restaurant(String name, String nit, String adminName) {
 		this.name = name;
 		this.nit = nit;
 		this.adminName = adminName;
@@ -27,11 +27,11 @@ public class Restaurant {
 		this.name = name;
 	}
 	
-	public int getNit() {
+	public String getNit() {
 		return nit;
 	}
 	
-	public void setNit(int nit) {
+	public void setNit(String nit) {
 		this.nit = nit;
 	}
 	

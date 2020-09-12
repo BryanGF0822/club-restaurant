@@ -23,8 +23,8 @@ public class Menu {
 		tuDomi = new TuDomicilio();
 	}
 
-	public void startMenu() {
-
+	public void startMenu() throws FileNotFoundException, ClassNotFoundException, IOException {
+		tuDomi = cargarDatos();
 		String menu = getMenuText();
 		int option;
 
@@ -46,7 +46,7 @@ public class Menu {
 		menu += "2. ";
 		menu += "3. ";
 		menu += "4. ";
-		menu += "5. ";
+		menu += "5. Exit";
 		return menu;
 	}
 
@@ -57,7 +57,7 @@ public class Menu {
 		return op;
 	}
 
-	private void operation(int option) {
+	private void operation(int option) throws IOException {
 
 		switch (option) {
 		case 1:
@@ -76,11 +76,29 @@ public class Menu {
 
 			break;
 
-		case 5:
+		case 5: exitProgram();
 
 			break;
 
 		}
+	}
+	
+	private void exitProgram() throws IOException {
+		sc.close();
+		guardarDatos();
+	}
+	
+	private void addRestaurant() {
+		System.out.println("Adding new restaurant...");
+		System.out.println("");
+		System.out.println("Please tytpe nema of restaurant:\n");
+		String na = sc.nextLine();
+		System.out.println("Please type nit of restaurant:\n");
+		String ni = sc.nextLine();
+		System.out.println("Please type administrator's name:\n");
+		String admin = sc.nextLine();
+		
+		tuDomi.addRestaurant(na, ni, admin);
 	}
 
 	private static void guardarDatos() throws IOException {
