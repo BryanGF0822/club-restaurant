@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurant {
+public class Restaurant implements Serializable {
 	
 	private String name;
 	private String nit;
@@ -47,6 +48,10 @@ public class Restaurant {
 		return products;
 	}
 	
-	
+	public void addProduct(int co, String na, String descrip, int pri, String nitR) {
+		
+		Product newprod = new Product(co, na, descrip, pri, nitR);
+		products.add(newprod);
+	}
 
 }

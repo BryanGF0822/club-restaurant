@@ -42,11 +42,11 @@ public class Menu {
 		menu += "   El lugar de tus restaurantes favoritos\n";
 		menu += "================================================\n";
 		menu += "";
-		menu += "1. ";
-		menu += "2. ";
-		menu += "3. ";
-		menu += "4. ";
-		menu += "5. Exit";
+		menu += "1. Add a new Restaurant.\n";
+		menu += "2. \n";
+		menu += "3. \n";
+		menu += "4. \n";
+		menu += "5. Exit\n";
 		return menu;
 	}
 
@@ -60,7 +60,7 @@ public class Menu {
 	private void operation(int option) throws IOException {
 
 		switch (option) {
-		case 1:
+		case 1: addRestaurant();
 
 			break;
 
@@ -99,11 +99,13 @@ public class Menu {
 		String admin = sc.nextLine();
 		
 		tuDomi.addRestaurant(na, ni, admin);
+		System.out.println("Procesing...\n");
+		System.out.println("Restaurant added correctly.");
 	}
 
 	private static void guardarDatos() throws IOException {
 
-		File f = new File("archivos/datos.dat");
+		File f = new File("data/datos.dat");
 		if (f.exists() == false) {
 			f.createNewFile();
 		}
@@ -117,7 +119,7 @@ public class Menu {
 	private static TuDomicilio cargarDatos() throws FileNotFoundException, IOException, ClassNotFoundException {
 
 		TuDomicilio td = null;
-		File f = new File("archivos/datos.dat");
+		File f = new File("data/datos.dat");
 		if (f.exists() == true) {
 			ObjectInputStream importar = new ObjectInputStream(new FileInputStream(f));
 			td = (TuDomicilio) importar.readObject();

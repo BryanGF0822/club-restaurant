@@ -22,5 +22,9 @@ public class TuDomicilio implements Serializable {
 		Restaurant newRest = new Restaurant(na, ni, admin);
 		restaurants.add(newRest);
 	}
+	
+	public void addCustomer() {
+		
+	}
 
 }
