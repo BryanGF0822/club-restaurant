@@ -3,13 +3,13 @@ package model;
 public class Customer {
 
 	private IndentificationType typeOfId;
-	private int idNumber;
+	private String idNumber;
 	private String name;
 	private String lastName;
-	private int phoneNumber;
+	private String phoneNumber;
 	private String address;
 
-	public Customer(IndentificationType typeOfId, int idNumber, String name, String lastName, int phoneNumber,
+	public Customer(IndentificationType typeOfId, String idNumber, String name, String lastName, String phoneNumber,
 			String address) {
 		this.typeOfId = typeOfId;
 		this.idNumber = idNumber;
@@ -27,11 +27,11 @@ public class Customer {
 		this.typeOfId = typeOfId;
 	}
 
-	public int getIdNumber() {
+	public String getIdNumber() {
 		return idNumber;
 	}
 
-	public void setIdNumber(int idNumber) {
+	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
 	}
 
@@ -51,11 +51,11 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(int phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 

@@ -1,14 +1,16 @@
 package model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable{
 	
-	private int code;
+	private String code;
 	private String name;
 	private String description;
-	private int price;
+	private double price;
 	private String nitRestaurant;// ¿Dudas sobre como manejar esto?
 
-	public Product(int code, String name, String description, int price, String nitRestaurant) {
+	public Product(String code, String name, String description, double price, String nitRestaurant) {
 		this.code = code;
 		this.name = name;
 		this.description = description;
@@ -16,11 +18,11 @@ public class Product {
 		this.nitRestaurant = nitRestaurant;
 	}
 
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
@@ -40,11 +42,11 @@ public class Product {
 		this.description = description;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

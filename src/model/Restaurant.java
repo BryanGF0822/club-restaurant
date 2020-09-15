@@ -48,7 +48,7 @@ public class Restaurant implements Serializable {
 		return products;
 	}
 	
-	public void addProduct(int co, String na, String descrip, int pri, String nitR) {
+	public void addProduct(String co, String na, String descrip, double pri, String nitR) {
 		
 		Product newprod = new Product(co, na, descrip, pri, nitR);
 		products.add(newprod);

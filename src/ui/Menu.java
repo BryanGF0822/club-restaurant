@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
+
+import model.IndentificationType;
 import model.TuDomicilio;
 
 public class Menu {
@@ -38,10 +40,10 @@ public class Menu {
 	private String getMenuText() {
 		String menu;
 		menu = "================================================\n";
-		menu += "       BIENVENIDO A CLUB-RESTAURANT\n";
-		menu += "   El lugar de tus restaurantes favoritos\n";
+		menu += "        WELCOME TO CLUB-RESTAURANT\n";
+		menu += "   The place of your favorite restaurants.\n";
 		menu += "================================================\n";
-		menu += "";
+		menu += "\n";
 		menu += "1. Add a new Restaurant.\n";
 		menu += "2. \n";
 		menu += "3. \n";
@@ -64,7 +66,7 @@ public class Menu {
 
 			break;
 
-		case 2:
+		case 2: addProduct();
 
 			break;
 
@@ -91,7 +93,7 @@ public class Menu {
 	private void addRestaurant() {
 		System.out.println("Adding new restaurant...");
 		System.out.println("");
-		System.out.println("Please tytpe nema of restaurant:\n");
+		System.out.println("Please type nema of restaurant:\n");
 		String na = sc.nextLine();
 		System.out.println("Please type nit of restaurant:\n");
 		String ni = sc.nextLine();
@@ -101,6 +103,63 @@ public class Menu {
 		tuDomi.addRestaurant(na, ni, admin);
 		System.out.println("Procesing...\n");
 		System.out.println("Restaurant added correctly.");
+	}
+	
+	private void addProduct() {
+		System.out.println("Adding new product...");
+		System.out.println("");
+		System.out.println("Please type code of product: ");
+		String co = sc.nextLine();
+		System.out.println("Please type name of product: ");
+		String na = sc.nextLine();
+		System.out.println("Please type a description of product: ");
+		String descrip = sc.nextLine();
+		System.out.println("Please type the cost of product: ");
+		double pri = Double.parseDouble(sc.nextLine());
+		System.out.println("Please type the Nit of restaurant: ");
+		String nitR = sc.nextLine();
+		
+		tuDomi.addProduct(co, na, descrip, pri, nitR);
+		System.out.println("Procesing...\n");
+		System.out.println("Product added correctly.");
+	}
+	
+	public void addCustomer() {
+		System.out.println("Adding new customer...");
+		System.out.println("");
+		System.out.println("Please select your identification type:");
+		System.out.println("1. Cedula de ciudadania.");
+		System.out.println("2. Tarjeta de identidad.");
+		System.out.println("3. Cedula de extranjeria.");
+		System.out.println("4. Pasaporte");
+		
+		int op = 0;
+		op = Integer.parseInt(sc.nextLine());
+		
+		IndentificationType typeOfId = null;
+		
+		if (op == 1) {
+			typeOfId = IndentificationType.CEDULA_DE_CIUDADANIA;
+		}else if (op == 2) {
+			typeOfId = IndentificationType.TARJETA_DE_IDENTIDAD;
+		}else if (op == 3) {
+			typeOfId = IndentificationType.CEDULA_DE_EXTRANJERIA;
+		}else {
+			typeOfId = IndentificationType.PASAPORTE;
+		}
+		
+		System.out.println("Please type your id number:");
+		String idN = sc.nextLine();
+		System.out.println("Please type your name:");
+		String na = sc.nextLine();
+		System.out.println("Please type your last name:");
+		String lastNa = sc.nextLine();
+		System.out.println("Please type your phone number:");
+		String phoneN = sc.nextLine();
+		System.out.println("Please type your address :");
+		String addr = sc.nextLine();
+		
+		tuDomi.addCustomer(typeOfId, idN, na, lastNa, phoneN, addr);
 	}
 
 	private static void guardarDatos() throws IOException {
