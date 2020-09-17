@@ -64,5 +64,20 @@ public class TuDomicilio implements Serializable {
 			}
 		}
 	}
+	
+	public void updateProduct(String co, String newCo, String newNa, String newDescrip, double newPri, String nitR) {
+		
+		boolean found = false;
+		for (int i = 0; i < restaurants.size(); i++) {
+			
+			if (restaurants.get(i).getNit().compareTo(nitR) == 0 && restaurants.get(i).updateProductConfirmation(co) == true ) {
+				
+				restaurants.get(i).getProducts().get(i).setCode(newCo);
+				restaurants.get(i).getProducts().get(i).setName(newNa);
+				restaurants.get(i).getProducts().get(i).setDescription(newDescrip);
+				restaurants.get(i).getProducts().get(i).setPrice(newPri);
+			}
+		}
+	}
 
 }

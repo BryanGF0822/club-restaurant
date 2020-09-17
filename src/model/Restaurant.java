@@ -53,5 +53,20 @@ public class Restaurant implements Serializable {
 		Product newprod = new Product(co, na, descrip, pri, nitR);
 		products.add(newprod);
 	}
+	
+	public boolean updateProductConfirmation(String co) {
+		
+		boolean found = false;
+		for (int i = 0; i < products.size(); i++) {
+			
+			if (products.get(i).getCode().compareTo(co) == 0) {
+				
+				found = true;
+			}
+		}
+		return found;
+	}
+	
+	
 
 }

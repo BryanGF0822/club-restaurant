@@ -62,15 +62,18 @@ public class Menu {
 	private void operation(int option) throws IOException {
 
 		switch (option) {
-		case 1: addRestaurant();
+		case 1:
+			addRestaurant();
 
 			break;
 
-		case 2: addProduct();
+		case 2:
+			addProduct();
 
 			break;
 
-		case 3:	addCustomer();
+		case 3:
+			addCustomer();
 
 			break;
 
@@ -78,18 +81,19 @@ public class Menu {
 
 			break;
 
-		case 5: exitProgram();
+		case 5:
+			exitProgram();
 
 			break;
 
 		}
 	}
-	
+
 	private void exitProgram() throws IOException {
 		sc.close();
 		guardarDatos();
 	}
-	
+
 	private void addRestaurant() {
 		System.out.println("Adding new restaurant...");
 		System.out.println("");
@@ -99,12 +103,28 @@ public class Menu {
 		String ni = sc.nextLine();
 		System.out.println("Please type administrator's name:\n");
 		String admin = sc.nextLine();
-		
+
 		tuDomi.addRestaurant(na, ni, admin);
 		System.out.println("Procesing...\n");
 		System.out.println("Restaurant added correctly.");
 	}
-	
+
+	private void updateRestaurant() {
+		System.out.println("Loading...");
+		System.out.println("");
+		System.out.println("please type the nit restaurant that you want to update:");
+		String nitR = sc.nextLine();
+		System.out.println("Please type the new name of restaurant:");
+		String newNa = sc.nextLine();
+		System.out.println("Please type the new nit of restaurant:");
+		String newNitR = sc.nextLine();
+		System.out.println("Please type the admin name of restaurant:");
+		String newAdmin = sc.nextLine();
+
+		tuDomi.updateRestaurant(nitR, newNa, newNitR, newAdmin);
+		System.out.println("Data was updated correctly.");
+	}
+
 	private void addProduct() {
 		System.out.println("Adding new product...");
 		System.out.println("");
@@ -118,28 +138,31 @@ public class Menu {
 		double pri = Double.parseDouble(sc.nextLine());
 		System.out.println("Please type the Nit of restaurant: ");
 		String nitR = sc.nextLine();
-		
+
 		tuDomi.addProduct(co, na, descrip, pri, nitR);
 		System.out.println("Procesing...\n");
 		System.out.println("Product added correctly.");
 	}
 	
-	private void updateRestaurant() {
+	private void updateProduct() {
 		System.out.println("Loading...");
 		System.out.println("");
-		System.out.println("please type the nit restaurant that you want to update:");
-		String nitR = sc.nextLine();
-		System.out.println("Please type the new name of restaurant:");
+		System.out.println("Please type the code of product that you want to update:");
+		System.out.println("");
+		String co = sc.nextLine();
+		System.out.println("Please type the new code of product:");
+		String newCo = sc.nextLine();
+		System.out.println("Please type the new name of product:");
 		String newNa = sc.nextLine();
-		System.out.println("Please type the new nit of restaurant:");
-		String newNitR = sc.nextLine();
-		System.out.println("Please type the admin name of restaurant:");
-		String newAdmin = sc.nextLine();
+		System.out.println("Please type a new description of product:");
+		String newDescrip = sc.nextLine();
+		System.out.println("Please type the new price of product:");
+		double newPri = Double.parseDouble(sc.nextLine());
+		System.out.println("Please type the nit of the restaurant where this product belongs:");
+		String nitR = sc.nextLine();
 		
-		tuDomi.updateRestaurant(nitR, newNa, newNitR, newAdmin);
-		System.out.println("Data was updated correctly.");
 	}
-	
+
 	public void addCustomer() {
 		System.out.println("Adding new customer...");
 		System.out.println("");
@@ -148,22 +171,22 @@ public class Menu {
 		System.out.println("2. Tarjeta de identidad.");
 		System.out.println("3. Cedula de extranjeria.");
 		System.out.println("4. Pasaporte");
-		
+
 		int op = 0;
 		op = Integer.parseInt(sc.nextLine());
-		
+
 		IdentificationType typeOfId = null;
-		
+
 		if (op == 1) {
 			typeOfId = IdentificationType.CEDULA_DE_CIUDADANIA;
-		}else if (op == 2) {
+		} else if (op == 2) {
 			typeOfId = IdentificationType.TARJETA_DE_IDENTIDAD;
-		}else if (op == 3) {
+		} else if (op == 3) {
 			typeOfId = IdentificationType.CEDULA_DE_EXTRANJERIA;
-		}else {
+		} else {
 			typeOfId = IdentificationType.PASAPORTE;
 		}
-		
+
 		System.out.println("Please type your id number:");
 		String idN = sc.nextLine();
 		System.out.println("Please type your name:");
@@ -174,7 +197,7 @@ public class Menu {
 		String phoneN = sc.nextLine();
 		System.out.println("Please type your address :");
 		String addr = sc.nextLine();
-		
+
 		tuDomi.addCustomer(typeOfId, idN, na, lastNa, phoneN, addr);
 	}
 
