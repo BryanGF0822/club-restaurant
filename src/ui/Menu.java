@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
-import model.IndentificationType;
+import model.IdentificationType;
 import model.TuDomicilio;
 
 public class Menu {
@@ -70,7 +70,7 @@ public class Menu {
 
 			break;
 
-		case 3:
+		case 3:	addCustomer();
 
 			break;
 
@@ -124,6 +124,22 @@ public class Menu {
 		System.out.println("Product added correctly.");
 	}
 	
+	private void updateRestaurant() {
+		System.out.println("Loading...");
+		System.out.println("");
+		System.out.println("please type the nit restaurant that you want to update:");
+		String nitR = sc.nextLine();
+		System.out.println("Please type the new name of restaurant:");
+		String newNa = sc.nextLine();
+		System.out.println("Please type the new nit of restaurant:");
+		String newNitR = sc.nextLine();
+		System.out.println("Please type the admin name of restaurant:");
+		String newAdmin = sc.nextLine();
+		
+		tuDomi.updateRestaurant(nitR, newNa, newNitR, newAdmin);
+		System.out.println("Data was updated correctly.");
+	}
+	
 	public void addCustomer() {
 		System.out.println("Adding new customer...");
 		System.out.println("");
@@ -136,16 +152,16 @@ public class Menu {
 		int op = 0;
 		op = Integer.parseInt(sc.nextLine());
 		
-		IndentificationType typeOfId = null;
+		IdentificationType typeOfId = null;
 		
 		if (op == 1) {
-			typeOfId = IndentificationType.CEDULA_DE_CIUDADANIA;
+			typeOfId = IdentificationType.CEDULA_DE_CIUDADANIA;
 		}else if (op == 2) {
-			typeOfId = IndentificationType.TARJETA_DE_IDENTIDAD;
+			typeOfId = IdentificationType.TARJETA_DE_IDENTIDAD;
 		}else if (op == 3) {
-			typeOfId = IndentificationType.CEDULA_DE_EXTRANJERIA;
+			typeOfId = IdentificationType.CEDULA_DE_EXTRANJERIA;
 		}else {
-			typeOfId = IndentificationType.PASAPORTE;
+			typeOfId = IdentificationType.PASAPORTE;
 		}
 		
 		System.out.println("Please type your id number:");

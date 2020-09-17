@@ -2,14 +2,14 @@ package model;
 
 public class Customer {
 
-	private IndentificationType typeOfId;
+	private IdentificationType typeOfId;
 	private String idNumber;
 	private String name;
 	private String lastName;
 	private String phoneNumber;
 	private String address;
 
-	public Customer(IndentificationType typeOfId, String idNumber, String name, String lastName, String phoneNumber,
+	public Customer(IdentificationType typeOfId, String idNumber, String name, String lastName, String phoneNumber,
 			String address) {
 		this.typeOfId = typeOfId;
 		this.idNumber = idNumber;
@@ -19,11 +19,11 @@ public class Customer {
 		this.address = address;
 	}
 
-	public IndentificationType getTypeOfId() {
+	public IdentificationType getTypeOfId() {
 		return typeOfId;
 	}
 
-	public void setTypeOfId(IndentificationType typeOfId) {
+	public void setTypeOfId(IdentificationType typeOfId) {
 		this.typeOfId = typeOfId;
 	}
 

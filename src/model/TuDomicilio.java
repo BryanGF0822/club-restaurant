@@ -27,8 +27,20 @@ public class TuDomicilio implements Serializable {
 		Restaurant newRest = new Restaurant(na, ni, admin);
 		restaurants.add(newRest);
 	}
+	
+	public void updateRestaurant(String nitR, String newna, String newnitR, String newadmin) {
+		boolean found = false;
+		
+		for (int i = 0; i < restaurants.size() && !found; i++) {
+			if (restaurants.get(i).getNit().compareTo(nitR) == 0) {
+				restaurants.get(i).setName(newna);
+				restaurants.get(i).setNit(newnitR);
+				restaurants.get(i).setAdminName(newadmin);
+			}
+		}
+	}
 
-	public void addCustomer(IndentificationType typeOfId, String idN, String na, String lastNa, String phoneN,
+	public void addCustomer(IdentificationType typeOfId, String idN, String na, String lastNa, String phoneN,
 			String addr) {
 		
 		Customer newCus = new Customer(typeOfId, idN, na, lastNa, phoneN, addr);
