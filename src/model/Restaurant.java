@@ -58,9 +58,7 @@ public class Restaurant implements Serializable {
 		
 		boolean found = false;
 		for (int i = 0; i < products.size(); i++) {
-			
 			if (products.get(i).getCode().compareTo(co) == 0) {
-				
 				found = true;
 			}
 		}

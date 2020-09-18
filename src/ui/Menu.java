@@ -14,7 +14,7 @@ import model.TuDomicilio;
 
 public class Menu {
 
-	public static final int EXIT = 5;
+	public static final int EXIT = 7;
 
 	private Scanner sc;
 	private static TuDomicilio tuDomi;
@@ -44,11 +44,13 @@ public class Menu {
 		menu += "   The place of your favorite restaurants.\n";
 		menu += "================================================\n";
 		menu += "\n";
-		menu += "1. Add a new Restaurant.\n";
-		menu += "2. \n";
-		menu += "3. \n";
-		menu += "4. \n";
-		menu += "5. Exit\n";
+		menu += "1. Add a new restaurant.\n";
+		menu += "2. Add a new product\n";
+		menu += "3. Add a new customer\n";
+		menu += "4. Update a restaurant.\n";
+		menu += "5. Update a product.\n";
+		menu += "6. Update a Customer.\n";
+		menu += "7. Exit\n";
 		return menu;
 	}
 
@@ -64,26 +66,33 @@ public class Menu {
 		switch (option) {
 		case 1:
 			addRestaurant();
-
 			break;
 
 		case 2:
 			addProduct();
-
 			break;
 
 		case 3:
 			addCustomer();
-
 			break;
 
 		case 4:
-
+			updateRestaurant();
+			break;
+			
+		case 5:
+			updateProduct();
+			break;
+			
+		case 6:
+			updateCustomer();
+			break;
+			
+		case 7:
+			exitProgram();
 			break;
 
-		case 5:
-			exitProgram();
-
+		case 8:
 			break;
 
 		}
@@ -122,7 +131,7 @@ public class Menu {
 		String newAdmin = sc.nextLine();
 
 		tuDomi.updateRestaurant(nitR, newNa, newNitR, newAdmin);
-		System.out.println("Data was updated correctly.");
+		System.out.println("Data was updated correctly.");		
 	}
 
 	private void addProduct() {
@@ -160,6 +169,9 @@ public class Menu {
 		double newPri = Double.parseDouble(sc.nextLine());
 		System.out.println("Please type the nit of the restaurant where this product belongs:");
 		String nitR = sc.nextLine();
+		
+		tuDomi.updateProduct(co, newCo, newNa, newDescrip, newPri, nitR);
+		System.out.println("Data was updated correctly");
 		
 	}
 
@@ -199,6 +211,47 @@ public class Menu {
 		String addr = sc.nextLine();
 
 		tuDomi.addCustomer(typeOfId, idN, na, lastNa, phoneN, addr);
+	}
+	
+	private void updateCustomer() {
+		System.out.println("Loading...");
+		System.out.println("");
+		System.out.println("Please type the id number to the customer that you want to update:");
+		String idN = sc.nextLine();
+		System.out.println("Please select identification type:");
+		System.out.println("1. Cedula de ciudadania.");
+		System.out.println("2. Tarjeta de identidad.");
+		System.out.println("3. Cedula de extranjeria.");
+		System.out.println("4. Pasaporte");
+
+		int op = 0;
+		op = Integer.parseInt(sc.nextLine());
+
+		IdentificationType newTofId = null;
+
+		if (op == 1) {
+			newTofId = IdentificationType.CEDULA_DE_CIUDADANIA;
+		} else if (op == 2) {
+			newTofId = IdentificationType.TARJETA_DE_IDENTIDAD;
+		} else if (op == 3) {
+			newTofId = IdentificationType.CEDULA_DE_EXTRANJERIA;
+		} else {
+			newTofId = IdentificationType.PASAPORTE;
+		}
+		
+		System.out.println("Please type your id number:");
+		String newIdN = sc.nextLine();
+		System.out.println("Please type your name:");
+		String newNa = sc.nextLine();
+		System.out.println("Please type your last name:");
+		String newLastNa = sc.nextLine();
+		System.out.println("Please type your phone number:");
+		String newPhoneN = sc.nextLine();
+		System.out.println("Please type your address:");
+		String newAddr = sc.nextLine();
+		
+		tuDomi.updateCustomer(idN, newTofId, newIdN, newNa, newLastNa, newPhoneN, newAddr);
+		System.out.println("Data was updated correctly.");
 	}
 
 	private static void guardarDatos() throws IOException {
