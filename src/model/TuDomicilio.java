@@ -2,7 +2,8 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Date;
 
@@ -23,14 +24,43 @@ public class TuDomicilio implements Serializable {
 		return restaurants;
 	}
 	
-	public void imprimir() {
-		String salida = "";
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void sortByNameRestaurant() {
+		Comparator<Restaurant> acr = new AlphabeticallyAscendingRestaurantComparator();
+		Collections.sort(restaurants, acr);
+		
 		for (int i = 0; i < restaurants.size(); i++) {
-			salida += restaurants.get(i).getName();
-			salida += restaurants.get(i).getNit();
-			salida += restaurants.get(i).getAdminName();
+			System.out.println((i+1) + "" + restaurants.get(i) + "");
 		}
 	}
+	
+	public Customer searchCustomer(List<Customer> customers, String searchName) {
+		int max = customers.size() - 1;
+		int min = 0;
+		int half = 0;
+		int position = -1;
+		
+		while(position == -1 && min <= max) {
+			half = (min + max)/2;
+			if (customers.get(half).getName() == searchName) {
+				position = half;
+			}else if (customers.get(half).getName().compareTo(searchName) < 0) {
+				min = half + 1;
+			}else {
+				max = half -1;
+			}
+		}
+		return customers.get(position);
+				
+	}
+	
 
 	public void addRestaurant(String na, String ni, String admin) {
 		Restaurant newRest = new Restaurant(na, ni, admin);
@@ -52,7 +82,15 @@ public class TuDomicilio implements Serializable {
 			String addr) {
 
 		Customer newCus = new Customer(typeOfId, idN, na, lastNa, phoneN, addr);
-		customers.add(newCus);
+		lastNameAndNameComparator landN = new lastNameAndNameComparator();
+		boolean found = false;
+		for (int i = 0; i < customers.size() && !found; i++) {
+			
+			if (landN.compare(newCus, customers.get(i)) < 0) {
+				customers.add(i, newCus);
+				found = true;
+			}
+		}
 	}
 
 	public void updateCustomer(String idN, IdentificationType newTofId, String newIdN, String newNa, String newLastNa,

@@ -14,7 +14,7 @@ import model.TuDomicilio;
 
 public class Menu {
 
-	public static final int EXIT = 7;
+	public static final int EXIT = 10;
 
 	private Scanner sc;
 	private static TuDomicilio tuDomi;
@@ -50,7 +50,9 @@ public class Menu {
 		menu += "4. Update a restaurant.\n";
 		menu += "5. Update a product.\n";
 		menu += "6. Update a Customer.\n";
-		menu += "7. Exit\n";
+		menu += "7. Alphabetically ascending restaurant list\n";
+		menu += "8. Search a customer.\n";
+		menu += "10. Exit\n";
 		return menu;
 	}
 
@@ -89,10 +91,14 @@ public class Menu {
 			break;
 			
 		case 7:
-			exitProgram();
+			restaurantesAlfabeticamenteAscendente();
+			break;
+			
+		case 8:
 			break;
 
-		case 8:
+		case 10:
+			exitProgram();
 			break;
 
 		}
@@ -116,6 +122,10 @@ public class Menu {
 		tuDomi.addRestaurant(na, ni, admin);
 		System.out.println("Procesing...\n");
 		System.out.println("Restaurant added correctly.");
+		
+		for (int i = 0; i < tuDomi.getRestaurants().size(); i++) {
+			System.out.println(tuDomi.getRestaurants().get(i));
+		}
 	}
 
 	private void updateRestaurant() {
@@ -131,7 +141,11 @@ public class Menu {
 		String newAdmin = sc.nextLine();
 
 		tuDomi.updateRestaurant(nitR, newNa, newNitR, newAdmin);
-		System.out.println("Data was updated correctly.");		
+		System.out.println("Data was updated correctly.");
+		
+		for (int i = 0; i < tuDomi.getRestaurants().size(); i++) {
+			System.out.println(tuDomi.getRestaurants().get(i));
+		}
 	}
 
 	private void addProduct() {
@@ -252,6 +266,17 @@ public class Menu {
 		
 		tuDomi.updateCustomer(idN, newTofId, newIdN, newNa, newLastNa, newPhoneN, newAddr);
 		System.out.println("Data was updated correctly.");
+	}
+	
+	public void restaurantesAlfabeticamenteAscendente() {
+		tuDomi.sortByNameRestaurant();
+	}
+	
+	public void searchCustomer() {
+		System.out.println("Please type name of customer that yu want to search:");
+		String searchName = sc.nextLine();
+		
+		tuDomi.searchCustomer(tuDomi.getCustomers(), searchName);
 	}
 
 	private static void guardarDatos() throws IOException {

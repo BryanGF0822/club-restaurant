@@ -64,7 +64,10 @@ public class Restaurant implements Serializable {
 		}
 		return found;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Restaurant name: " + name + ", Nit: " + nit + ", AdminName:" + adminName + "\n";
+	}
 
 }
