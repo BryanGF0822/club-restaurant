@@ -1,6 +1,9 @@
 package model;
 
-public class Customer {
+import java.io.Serializable;
+import java.util.Comparator;
+
+public class Customer implements Serializable, Comparable<Customer>{
 
 	private IdentificationType typeOfId;
 	private String idNumber;
@@ -71,6 +74,20 @@ public class Customer {
 	public String toString() {
 		return "Customer typeOfId: " + typeOfId + ", idNumber: " + idNumber + ", name: " + name + ", lastName: " + lastName
 				+ ", phoneNumber: " + phoneNumber + ", address: " + address;
+	}
+
+	@Override
+	public int compareTo(Customer o) {
+		
+		int cus = 0;
+		if (o.getPhoneNumber().compareTo(getPhoneNumber()) < 0) {
+			cus = 1;
+		}else if (o.getPhoneNumber().compareTo(getPhoneNumber()) > 0) {
+			cus = -1;
+		}else {
+			cus = 0;
+		}
+		return cus;
 	}
 	
 	

@@ -57,6 +57,12 @@ public class Product implements Serializable{
 	public void setNitRestaurant(String nitRestaurant) {
 		this.nitRestaurant = nitRestaurant;
 	}
+
+	@Override
+	public String toString() {
+		return "Product [code=" + code + ", name=" + name + ", description=" + description + ", price=" + price
+				+ ", nitRestaurant=" + nitRestaurant + "]";
+	}
 	
 	
 	

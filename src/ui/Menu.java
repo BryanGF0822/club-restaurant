@@ -7,9 +7,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.Scanner;
 
 import model.IdentificationType;
+import model.StatusOrder;
 import model.TuDomicilio;
 
 public class Menu {
@@ -51,7 +53,8 @@ public class Menu {
 		menu += "5. Update a product.\n";
 		menu += "6. Update a Customer.\n";
 		menu += "7. Alphabetically ascending restaurant list\n";
-		menu += "8. Search a customer.\n";
+		menu += "8. Phone Number descending customer list\n";
+		menu += "9. Search a customer.\n";
 		menu += "10. Exit\n";
 		return menu;
 	}
@@ -68,33 +71,44 @@ public class Menu {
 		switch (option) {
 		case 1:
 			addRestaurant();
+			guardarDatos();
 			break;
 
 		case 2:
 			addProduct();
+			guardarDatos();
 			break;
 
 		case 3:
 			addCustomer();
+			guardarDatos();
 			break;
 
 		case 4:
 			updateRestaurant();
+			guardarDatos();
 			break;
 			
 		case 5:
 			updateProduct();
+			guardarDatos();
 			break;
 			
 		case 6:
 			updateCustomer();
+			guardarDatos();
 			break;
 			
 		case 7:
-			restaurantesAlfabeticamenteAscendente();
+			alphabeticallyAscendingRestaurant();
 			break;
 			
 		case 8:
+			phoneNumberDescending();
+			break;
+			
+		case 9:
+			searchCustomer();
 			break;
 
 		case 10:
@@ -106,7 +120,6 @@ public class Menu {
 
 	private void exitProgram() throws IOException {
 		sc.close();
-		guardarDatos();
 	}
 
 	private void addRestaurant() {
@@ -268,15 +281,56 @@ public class Menu {
 		System.out.println("Data was updated correctly.");
 	}
 	
-	public void restaurantesAlfabeticamenteAscendente() {
+	public void addOrder() {
+		System.out.println("Please type your customer id number:");
+		String idCo = sc.nextLine();
+		
+		for (int i = 0; i < tuDomi.getCustomers().size(); i++) {
+			if (tuDomi.getCustomers().get(i).getIdNumber() == idCo) {
+				
+				int orderCode = 1000000 + (int) (Math.random() * 9999999);
+				Date dayAndTime = new Date();
+				String trueCode = idCo;
+				StatusOrder status = StatusOrder.SOLICITADO;
+				
+				String listR = "";
+				for (int j = 0; j < tuDomi.getRestaurants().size(); j++) {
+					listR += (i+1)+ ". " +tuDomi.getRestaurants().get(i).getName() + "";
+				}
+				System.out.println("Please Select a restaurant when you want to order:");
+				int restaurantNumber = Integer.parseInt(sc.nextLine());
+				
+				String nitRestaurantOrder = tuDomi.getRestaurants().get(restaurantNumber - 1).getNit();
+				
+				String listP = "";
+				for (int j = 0; j < tuDomi.getRestaurants().get(restaurantNumber -1).getProducts().size(); j++) {
+					
+				}
+			}
+		}
+		
+		
+	}
+	
+	public void alphabeticallyAscendingRestaurant() {
 		tuDomi.sortByNameRestaurant();
+	}
+	
+	public void phoneNumberDescending() {
+		tuDomi.sortByPhoneNumberOfCustomer();
 	}
 	
 	public void searchCustomer() {
 		System.out.println("Please type name of customer that yu want to search:");
 		String searchName = sc.nextLine();
 		
+		long start = System.currentTimeMillis();
 		tuDomi.searchCustomer(tuDomi.getCustomers(), searchName);
+		long end = System.currentTimeMillis();
+		
+		System.out.println("start:" + start);
+		System.out.println("end:" + end);
+		System.out.println("Time of search: " + (end-start));
 	}
 
 	private static void guardarDatos() throws IOException {

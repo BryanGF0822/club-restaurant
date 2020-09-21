@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Date;
 
+@SuppressWarnings("serial")
 public class TuDomicilio implements Serializable {
 
 	private List<Restaurant> restaurants;
@@ -37,8 +38,17 @@ public class TuDomicilio implements Serializable {
 		Collections.sort(restaurants, acr);
 		
 		for (int i = 0; i < restaurants.size(); i++) {
-			System.out.println((i+1) + "" + restaurants.get(i) + "");
+			System.out.println((i+1) + "" + restaurants.get(i) + ".");
 		}
+	}
+	
+	public void sortByPhoneNumberOfCustomer() {
+		Collections.sort(customers);
+		
+		for (int i = 0; i < customers.size(); i++) {
+			System.out.println((i+1) + ". " + customers.get(i) + ".");
+		}
+		
 	}
 	
 	public Customer searchCustomer(List<Customer> customers, String searchName) {
@@ -96,7 +106,6 @@ public class TuDomicilio implements Serializable {
 	public void updateCustomer(String idN, IdentificationType newTofId, String newIdN, String newNa, String newLastNa,
 			String newPhoneN, String newAddr) {
 
-		boolean found = false;
 		for (int i = 0; i < customers.size(); i++) {
 
 			if (customers.get(i).getIdNumber().compareTo(idN) == 0) {
@@ -110,10 +119,9 @@ public class TuDomicilio implements Serializable {
 		}
 	}
 
-	public void addOrder() {
+	public void addOrder(String idCo, String co, Date fecha_y_hora, String customerCode, StatusOrder status) {
 
-		int orderCode = 1000000 + (int) (Math.random() * 9999999);
-		Date dayAndTime = new Date();
+		
 	}
 
 	public void addProduct(String co, String na, String descrip, double pri, String nitR) {
@@ -130,7 +138,6 @@ public class TuDomicilio implements Serializable {
 
 	public void updateProduct(String co, String newCo, String newNa, String newDescrip, double newPri, String nitR) {
 
-		boolean found = false;
 		for (int i = 0; i < restaurants.size(); i++) {
 
 			if (restaurants.get(i).getNit().compareTo(nitR) == 0
