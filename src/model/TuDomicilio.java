@@ -119,8 +119,14 @@ public class TuDomicilio implements Serializable {
 		}
 	}
 
-	public void addOrder(String idCo, String co, Date fecha_y_hora, String customerCode, StatusOrder status) {
+	public void addOrder(String co, Date fecha_y_hora, String customerCode, String nitResProSelected, String quantity, StatusOrder status, String listPs) {
 
+		Order newOr = new Order(co, fecha_y_hora, customerCode, nitResProSelected, quantity, status, listPs);
+		orders.add(newOr);
+	}
+	
+	public void updateOrder(String co) {
+		
 		
 	}
 

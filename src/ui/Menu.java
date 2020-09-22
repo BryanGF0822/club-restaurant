@@ -7,16 +7,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import model.IdentificationType;
+import model.Order;
 import model.StatusOrder;
 import model.TuDomicilio;
 
 public class Menu {
 
-	public static final int EXIT = 10;
+	public static final int EXIT = 12;
 
 	private Scanner sc;
 	private static TuDomicilio tuDomi;
@@ -49,13 +52,15 @@ public class Menu {
 		menu += "1. Add a new restaurant.\n";
 		menu += "2. Add a new product\n";
 		menu += "3. Add a new customer\n";
-		menu += "4. Update a restaurant.\n";
-		menu += "5. Update a product.\n";
-		menu += "6. Update a Customer.\n";
-		menu += "7. Alphabetically ascending restaurant list\n";
-		menu += "8. Phone Number descending customer list\n";
-		menu += "9. Search a customer.\n";
-		menu += "10. Exit\n";
+		menu += "4. Make an order.\n";
+		menu += "5. Update a restaurant.\n";
+		menu += "6. Update a product.\n";
+		menu += "7. Update a Customer.\n";
+		menu += "8. Update an order.\n";
+		menu += "9. Alphabetically ascending restaurant list\n";
+		menu += "10. Phone Number descending customer list\n";
+		menu += "11. Search a customer.\n";
+		menu += "12. Exit\n";
 		return menu;
 	}
 
@@ -85,33 +90,39 @@ public class Menu {
 			break;
 
 		case 4:
+			break;
+
+		case 5:
 			updateRestaurant();
 			guardarDatos();
 			break;
-			
-		case 5:
+
+		case 6:
 			updateProduct();
 			guardarDatos();
 			break;
-			
-		case 6:
+
+		case 7:
 			updateCustomer();
 			guardarDatos();
 			break;
-			
-		case 7:
-			alphabeticallyAscendingRestaurant();
-			break;
-			
+
 		case 8:
-			phoneNumberDescending();
 			break;
-			
+
 		case 9:
-			searchCustomer();
+			alphabeticallyAscendingRestaurant();
 			break;
 
 		case 10:
+			phoneNumberDescending();
+			break;
+
+		case 11:
+			searchCustomer();
+			break;
+
+		case 12:
 			exitProgram();
 			break;
 
@@ -135,7 +146,7 @@ public class Menu {
 		tuDomi.addRestaurant(na, ni, admin);
 		System.out.println("Procesing...\n");
 		System.out.println("Restaurant added correctly.");
-		
+
 		for (int i = 0; i < tuDomi.getRestaurants().size(); i++) {
 			System.out.println(tuDomi.getRestaurants().get(i));
 		}
@@ -155,7 +166,7 @@ public class Menu {
 
 		tuDomi.updateRestaurant(nitR, newNa, newNitR, newAdmin);
 		System.out.println("Data was updated correctly.");
-		
+
 		for (int i = 0; i < tuDomi.getRestaurants().size(); i++) {
 			System.out.println(tuDomi.getRestaurants().get(i));
 		}
@@ -179,7 +190,7 @@ public class Menu {
 		System.out.println("Procesing...\n");
 		System.out.println("Product added correctly.");
 	}
-	
+
 	private void updateProduct() {
 		System.out.println("Loading...");
 		System.out.println("");
@@ -196,10 +207,10 @@ public class Menu {
 		double newPri = Double.parseDouble(sc.nextLine());
 		System.out.println("Please type the nit of the restaurant where this product belongs:");
 		String nitR = sc.nextLine();
-		
+
 		tuDomi.updateProduct(co, newCo, newNa, newDescrip, newPri, nitR);
 		System.out.println("Data was updated correctly");
-		
+
 	}
 
 	public void addCustomer() {
@@ -239,7 +250,7 @@ public class Menu {
 
 		tuDomi.addCustomer(typeOfId, idN, na, lastNa, phoneN, addr);
 	}
-	
+
 	private void updateCustomer() {
 		System.out.println("Loading...");
 		System.out.println("");
@@ -265,7 +276,7 @@ public class Menu {
 		} else {
 			newTofId = IdentificationType.PASAPORTE;
 		}
-		
+
 		System.out.println("Please type your id number:");
 		String newIdN = sc.nextLine();
 		System.out.println("Please type your name:");
@@ -276,61 +287,103 @@ public class Menu {
 		String newPhoneN = sc.nextLine();
 		System.out.println("Please type your address:");
 		String newAddr = sc.nextLine();
-		
+
 		tuDomi.updateCustomer(idN, newTofId, newIdN, newNa, newLastNa, newPhoneN, newAddr);
 		System.out.println("Data was updated correctly.");
 	}
-	
+
 	public void addOrder() {
 		System.out.println("Please type your customer id number:");
 		String idCo = sc.nextLine();
-		
+
 		for (int i = 0; i < tuDomi.getCustomers().size(); i++) {
 			if (tuDomi.getCustomers().get(i).getIdNumber() == idCo) {
-				
-				int orderCode = 1000000 + (int) (Math.random() * 9999999);
+
+				String orderCode = 1000000 + (int) (Math.random() * 9999999) + "";
 				Date dayAndTime = new Date();
 				String trueCode = idCo;
 				StatusOrder status = StatusOrder.SOLICITADO;
-				
+
 				String listR = "";
 				for (int j = 0; j < tuDomi.getRestaurants().size(); j++) {
-					listR += (i+1)+ ". " +tuDomi.getRestaurants().get(i).getName() + "";
+					listR += (j + 1) + ". " + tuDomi.getRestaurants().get(j).getName() + "\n";
 				}
+				System.out.println(listR);
+
 				System.out.println("Please Select a restaurant when you want to order:");
 				int restaurantNumber = Integer.parseInt(sc.nextLine());
-				
+
 				String nitRestaurantOrder = tuDomi.getRestaurants().get(restaurantNumber - 1).getNit();
-				
+
 				String listP = "";
-				for (int j = 0; j < tuDomi.getRestaurants().get(restaurantNumber -1).getProducts().size(); j++) {
-					
+				for (int j = 0; j < tuDomi.getRestaurants().get(restaurantNumber - 1).getProducts().size(); j++) {
+					listP += (j + 1) + ". "
+							+ tuDomi.getRestaurants().get(restaurantNumber - 1).getProducts().get(j).getName();
 				}
+
+				boolean noMore = false;
+				String listPS = "";
+				String quanty = "";
+				while (!noMore) {
+					System.out.println(listP);
+					System.out.println("Please select a product that you want to add to the order:");
+					int selectedProduct = Integer.parseInt(sc.nextLine());
+					System.out.println("Please type quantity product you want to order:");
+					quanty = sc.nextLine();
+
+					listPS += "Order: " + "Restaurant: "
+							+ tuDomi.getRestaurants().get(restaurantNumber - 1).getProducts().get(selectedProduct - 1)
+									.getName()
+							+ "Product: " + tuDomi.getRestaurants().get(restaurantNumber - 1).getProducts()
+									.get(selectedProduct - 1).getCode()
+							+ "Quantity: " + quanty + "\n";
+
+					System.out.println("Do you want to add another product?");
+					System.out.println("1. Yes.");
+					System.out.println("2. No");
+					int answer = Integer.parseInt(sc.nextLine());
+					if (answer == 2) {
+						noMore = true;
+					}
+
+				}
+
+				tuDomi.addOrder(orderCode, dayAndTime, trueCode, nitRestaurantOrder, quanty, status, listPS);
 			}
 		}
-		
-		
 	}
 	
+	private void updateOrder() {
+		System.out.println("Please type code of order that you want to update:");
+		String searchCode = sc.nextLine();
+		List<Order> orders = tuDomi.getOrders();
+		
+		for (int i = 0; i < orders.size(); i++) {
+			if (orders.get(i).getCode().compareTo(searchCode) == 0) {
+				tuDomi.updateOrder();
+			}
+		}
+	}
+
 	public void alphabeticallyAscendingRestaurant() {
 		tuDomi.sortByNameRestaurant();
 	}
-	
+
 	public void phoneNumberDescending() {
 		tuDomi.sortByPhoneNumberOfCustomer();
 	}
-	
+
 	public void searchCustomer() {
 		System.out.println("Please type name of customer that yu want to search:");
 		String searchName = sc.nextLine();
-		
+
 		long start = System.currentTimeMillis();
 		tuDomi.searchCustomer(tuDomi.getCustomers(), searchName);
 		long end = System.currentTimeMillis();
-		
+
 		System.out.println("start:" + start);
 		System.out.println("end:" + end);
-		System.out.println("Time of search: " + (end-start));
+		System.out.println("Time of search: " + (end - start));
 	}
 
 	private static void guardarDatos() throws IOException {
