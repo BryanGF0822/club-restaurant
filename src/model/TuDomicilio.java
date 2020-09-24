@@ -1,5 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -234,6 +238,57 @@ public class TuDomicilio implements Serializable {
 				
 				found = true;
 			}
+		}
+	}
+	
+	public void importDataRestaurant(String fn) throws IOException {
+		File fl = new File(fn);
+		@SuppressWarnings("resource")
+		BufferedReader br = new BufferedReader(new FileReader(fl));
+		br.readLine();
+		
+		String line = br.readLine();
+		
+		while (line != null) {
+			String[] split = line.split(" ");			
+			Restaurant restau = new Restaurant(split[0], split[1], split[3]);
+			restaurants.add(restau);
+			line = br.readLine();
+			
+		}
+	}
+	
+	public void importDataCustomer(String fn) throws IOException {
+		File fl = new File(fn);
+		@SuppressWarnings("resource")
+		BufferedReader br = new BufferedReader(new FileReader(fl));
+		br.readLine();
+		
+		String line = br.readLine();
+		
+		while (line != null) {
+			String[] split = line.split(" ");			
+			Customer custo = new Customer(IdentificationType.valueOf(split[0]), split[1], split[2], split[3], split[4], split[5]);
+			customers.add(custo);
+			line = br.readLine();
+			
+		}
+	}
+	
+	public void importDataOrder(String fn) throws IOException {
+		File fl = new File(fn);
+		@SuppressWarnings("resource")
+		BufferedReader br = new BufferedReader(new FileReader(fl));
+		br.readLine();
+		
+		String line = br.readLine();
+		
+		while (line != null) {
+			String[] split = line.split(" ");			
+			Order or = new 	Order(split[0], java.sql.Date.valueOf(split[1]), split[2], split[3], split[4], StatusOrder.valueOf(split[5]), split[6]) ;
+			orders.add(or);
+			line = br.readLine();
+			
 		}
 	}
 
