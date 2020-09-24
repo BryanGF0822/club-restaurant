@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -31,7 +30,7 @@ public class Menu {
 	}
 
 	public void startMenu() throws FileNotFoundException, ClassNotFoundException, IOException {
-		tuDomi = cargarDatos();
+		tuDomi = loadData();
 		String menu = getMenuText();
 		int option;
 
@@ -76,38 +75,42 @@ public class Menu {
 		switch (option) {
 		case 1:
 			addRestaurant();
-			guardarDatos();
+			saveData();
 			break;
 
 		case 2:
 			addProduct();
-			guardarDatos();
+			saveData();
 			break;
 
 		case 3:
 			addCustomer();
-			guardarDatos();
+			saveData();
 			break;
 
 		case 4:
+			addOrder();
+			saveData();
 			break;
 
 		case 5:
 			updateRestaurant();
-			guardarDatos();
+			saveData();
 			break;
 
 		case 6:
 			updateProduct();
-			guardarDatos();
+			saveData();
 			break;
 
 		case 7:
 			updateCustomer();
-			guardarDatos();
+			saveData();
 			break;
 
 		case 8:
+			updateOrder();
+			saveData();
 			break;
 
 		case 9:
@@ -213,7 +216,7 @@ public class Menu {
 
 	}
 
-	public void addCustomer() {
+	private void addCustomer() {
 		System.out.println("Adding new customer...");
 		System.out.println("");
 		System.out.println("Please select your identification type:");
@@ -292,7 +295,7 @@ public class Menu {
 		System.out.println("Data was updated correctly.");
 	}
 
-	public void addOrder() {
+	private void addOrder() {
 		System.out.println("Please type your customer id number:");
 		String idCo = sc.nextLine();
 
@@ -352,28 +355,72 @@ public class Menu {
 			}
 		}
 	}
-	
+
 	private void updateOrder() {
 		System.out.println("Please type code of order that you want to update:");
 		String searchCode = sc.nextLine();
+		int answer = 0;
+		boolean found = false;
 		List<Order> orders = tuDomi.getOrders();
 		
-		for (int i = 0; i < orders.size(); i++) {
+		for (int i = 0; i < orders.size() && !found; i++) {
 			if (orders.get(i).getCode().compareTo(searchCode) == 0) {
-				tuDomi.updateOrder();
+				if (orders.get(i).getStatus() == StatusOrder.SOLICITADO) {
+					System.out.println("Select the new status:");
+					System.out.println("1. En proceso.");
+					System.out.println("2. Enviado.");
+					System.out.println("3. Entregado");
+					answer = Integer.parseInt(sc.nextLine());
+
+					if (answer == 1) {
+						orders.get(i).setStatus(StatusOrder.EN_PROCESO);
+						System.out.println("The order was updated.");
+					} else if (answer == 2) {
+						orders.get(i).setStatus(StatusOrder.ENVIADO);
+						System.out.println("The order was updated.");
+
+					} else {
+						orders.get(i).setStatus(StatusOrder.ENTREGADO);
+						System.out.println("The order was updated.");
+
+					}
+				} else if (orders.get(i).getStatus() == StatusOrder.EN_PROCESO) {
+					System.out.println("Select the new status:");
+					System.out.println("1. Enviado.");
+					System.out.println("2. Envtregado.");
+					answer = Integer.parseInt(sc.nextLine());
+
+					if (answer == 1) {
+						orders.get(i).setStatus(StatusOrder.ENVIADO);
+						System.out.println("The order was updated.");
+
+					} else {
+						orders.get(i).setStatus(StatusOrder.ENTREGADO);
+						System.out.println("The order was updated.");
+
+					}
+				} else if (orders.get(i).getStatus() == StatusOrder.ENVIADO) {
+					orders.get(i).setStatus(StatusOrder.ENTREGADO);
+					System.out.println("The order was updated.");
+
+				} else {
+					System.out.println(
+							"it is not possible to update the status of this loss because it was already delivered to the customer.");
+				}
 			}
+			found = true;
 		}
 	}
 
-	public void alphabeticallyAscendingRestaurant() {
+	private void alphabeticallyAscendingRestaurant() {
 		tuDomi.sortByNameRestaurant();
 	}
 
-	public void phoneNumberDescending() {
+	private void phoneNumberDescending() {
 		tuDomi.sortByPhoneNumberOfCustomer();
 	}
 
-	public void searchCustomer() {
+	private void searchCustomer() {
 		System.out.println("Please type name of customer that yu want to search:");
 		String searchName = sc.nextLine();
 
@@ -386,7 +433,7 @@ public class Menu {
 		System.out.println("Time of search: " + (end - start));
 	}
 
-	private static void guardarDatos() throws IOException {
+	private static void saveData() throws IOException {
 
 		File f = new File("data/datos.dat");
 		if (f.exists() == false) {
@@ -399,7 +446,7 @@ public class Menu {
 
 	}
 
-	private static TuDomicilio cargarDatos() throws FileNotFoundException, IOException, ClassNotFoundException {
+	private static TuDomicilio loadData() throws FileNotFoundException, IOException, ClassNotFoundException {
 
 		TuDomicilio td = null;
 		File f = new File("data/datos.dat");

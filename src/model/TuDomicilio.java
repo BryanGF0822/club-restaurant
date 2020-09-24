@@ -84,6 +84,7 @@ public class TuDomicilio implements Serializable {
 				restaurants.get(i).setName(newna);
 				restaurants.get(i).setNit(newnitR);
 				restaurants.get(i).setAdminName(newadmin);
+				found = true;
 			}
 		}
 	}
@@ -105,9 +106,9 @@ public class TuDomicilio implements Serializable {
 
 	public void updateCustomer(String idN, IdentificationType newTofId, String newIdN, String newNa, String newLastNa,
 			String newPhoneN, String newAddr) {
-
-		for (int i = 0; i < customers.size(); i++) {
-
+		
+		boolean found  =false;
+		for (int i = 0; i < customers.size() && !found; i++) {
 			if (customers.get(i).getIdNumber().compareTo(idN) == 0) {
 				customers.get(i).setTypeOfId(newTofId);
 				customers.get(i).setIdNumber(newIdN);
@@ -115,6 +116,8 @@ public class TuDomicilio implements Serializable {
 				customers.get(i).setLastName(newLastNa);
 				customers.get(i).setPhoneNumber(newPhoneN);
 				customers.get(i).setAddress(newAddr);
+				
+				found = true;
 			}
 		}
 	}
@@ -123,11 +126,6 @@ public class TuDomicilio implements Serializable {
 
 		Order newOr = new Order(co, fecha_y_hora, customerCode, nitResProSelected, quantity, status, listPs);
 		orders.add(newOr);
-	}
-	
-	public void updateOrder(String co) {
-		
-		
 	}
 
 	public void addProduct(String co, String na, String descrip, double pri, String nitR) {
@@ -138,13 +136,15 @@ public class TuDomicilio implements Serializable {
 			if (restaurants.get(i).getNit().compareTo(nitR) == 0) {
 
 				restaurants.get(i).addProduct(co, na, descrip, pri, nitR);
+				found = true;
 			}
 		}
 	}
 
 	public void updateProduct(String co, String newCo, String newNa, String newDescrip, double newPri, String nitR) {
-
-		for (int i = 0; i < restaurants.size(); i++) {
+		
+		boolean found = false;
+		for (int i = 0; i < restaurants.size() && !found; i++) {
 
 			if (restaurants.get(i).getNit().compareTo(nitR) == 0
 					&& restaurants.get(i).updateProductConfirmation(co) == true) {
@@ -153,6 +153,8 @@ public class TuDomicilio implements Serializable {
 				restaurants.get(i).getProducts().get(i).setName(newNa);
 				restaurants.get(i).getProducts().get(i).setDescription(newDescrip);
 				restaurants.get(i).getProducts().get(i).setPrice(newPri);
+				
+				found = true;
 			}
 		}
 	}

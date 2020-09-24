@@ -1,8 +1,8 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Comparator;
 
+@SuppressWarnings("serial")
 public class Customer implements Serializable, Comparable<Customer>{
 
 	private IdentificationType typeOfId;
