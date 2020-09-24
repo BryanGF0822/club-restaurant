@@ -1,7 +1,9 @@
 package model;
 
 import java.util.Comparator;
-
+/**
+ * 
+ */
 public class AlphabeticallyAscendingRestaurantComparator implements Comparator<Restaurant> {
 	
 	@Override

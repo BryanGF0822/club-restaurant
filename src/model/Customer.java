@@ -3,6 +3,9 @@ package model;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
+/**
+ * 
+ */
 public class Customer implements Serializable, Comparable<Customer>{
 
 	private IdentificationType typeOfId;
@@ -11,7 +14,16 @@ public class Customer implements Serializable, Comparable<Customer>{
 	private String lastName;
 	private String phoneNumber;
 	private String address;
-
+	/**
+	 * [Customer description]
+	 * @param  typeOfId    [description]
+	 * @param  idNumber    [description]
+	 * @param  name        [description]
+	 * @param  lastName    [description]
+	 * @param  phoneNumber [description]
+	 * @param  address     [description]
+	 * @return             [description]
+	 */
 	public Customer(IdentificationType typeOfId, String idNumber, String name, String lastName, String phoneNumber,
 			String address) {
 		this.typeOfId = typeOfId;
@@ -70,12 +82,21 @@ public class Customer implements Serializable, Comparable<Customer>{
 		this.address = address;
 	}
 
+	/**
+	 * [toString description]
+	 * @return [description]
+	 */
 	@Override
 	public String toString() {
 		return "Customer typeOfId: " + typeOfId + ", idNumber: " + idNumber + ", name: " + name + ", lastName: " + lastName
 				+ ", phoneNumber: " + phoneNumber + ", address: " + address;
 	}
 
+	/**
+	 * [compareTo description]
+	 * @param  o [description]
+	 * @return   [description]
+	 */
 	@Override
 	public int compareTo(Customer o) {
 		

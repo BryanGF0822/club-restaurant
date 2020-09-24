@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("serial")
+/**
+ * 
+ */
 public class Restaurant implements Serializable {
 	
 	private String name;
@@ -12,7 +15,14 @@ public class Restaurant implements Serializable {
 	private String adminName;
 	
 	private List<Product> products;
-	
+
+	/**
+	 * [Restaurant description]
+	 * @param  name      [description]
+	 * @param  nit       [description]
+	 * @param  adminName [description]
+	 * @return           [description]
+	 */
 	public Restaurant(String name, String nit, String adminName) {
 		this.name = name;
 		this.nit = nit;
@@ -48,13 +58,26 @@ public class Restaurant implements Serializable {
 	public List<Product> getProducts() {
 		return products;
 	}
-	
+
+	/**
+	 * [addProduct description]
+	 * @param co      [description]
+	 * @param na      [description]
+	 * @param descrip [description]
+	 * @param pri     [description]
+	 * @param nitR    [description]
+	 */
 	public void addProduct(String co, String na, String descrip, double pri, String nitR) {
 		
 		Product newprod = new Product(co, na, descrip, pri, nitR);
 		products.add(newprod);
 	}
-	
+
+	/**
+	 * [updateProductConfirmation description]
+	 * @param  co [description]
+	 * @return    [description]
+	 */
 	public boolean updateProductConfirmation(String co) {
 		
 		boolean found = false;
@@ -65,7 +88,11 @@ public class Restaurant implements Serializable {
 		}
 		return found;
 	}
-
+	
+	/**
+	 * [toString description]
+	 * @return [description]
+	 */
 	@Override
 	public String toString() {
 		return "Restaurant name: " + name + ", Nit: " + nit + ", AdminName:" + adminName + "\n";

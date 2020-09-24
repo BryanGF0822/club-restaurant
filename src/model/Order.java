@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 @SuppressWarnings("serial")
+/**
+ * 
+ */
 public class Order implements Serializable{
 	
 	private String code;
@@ -14,7 +17,17 @@ public class Order implements Serializable{
 	private StatusOrder status;
 	private String listPS;
 	
-	
+	/**
+	 * [Order description]
+	 * @param  code              [description]
+	 * @param  fecha_y_hora      [description]
+	 * @param  customerCode      [description]
+	 * @param  nitResProSelected [description]
+	 * @param  quantity          [description]
+	 * @param  status            [description]
+	 * @param  listPS            [description]
+	 * @return                   [description]
+	 */
 	public Order(String code, Date fecha_y_hora, String customerCode, String nitResProSelected, String quantity, StatusOrder status, String listPS) {
 		this.code = code;
 		this.fecha_y_hora = fecha_y_hora;

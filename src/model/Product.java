@@ -3,14 +3,26 @@ package model;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
+/**
+ * 
+ */
 public class Product implements Serializable{
 	
 	private String code;
 	private String name;
 	private String description;
 	private double price;
-	private String nitRestaurant;// ¿Dudas sobre como manejar esto?
-
+	private String nitRestaurant;
+	
+	/**
+	 * [Product description]
+	 * @param  code          [description]
+	 * @param  name          [description]
+	 * @param  description   [description]
+	 * @param  price         [description]
+	 * @param  nitRestaurant [description]
+	 * @return               [description]
+	 */
 	public Product(String code, String name, String description, double price, String nitRestaurant) {
 		this.code = code;
 		this.name = name;
@@ -59,6 +71,10 @@ public class Product implements Serializable{
 		this.nitRestaurant = nitRestaurant;
 	}
 
+	/**
+	 * [toString description]
+	 * @return [description]
+	 */
 	@Override
 	public String toString() {
 		return "Product [code=" + code + ", name=" + name + ", description=" + description + ", price=" + price

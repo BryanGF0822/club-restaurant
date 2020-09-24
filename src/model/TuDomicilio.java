@@ -8,12 +8,20 @@ import java.util.List;
 import java.util.Date;
 
 @SuppressWarnings("serial")
+
+/**
+ * 
+ */
 public class TuDomicilio implements Serializable {
 
 	private List<Restaurant> restaurants;
 	private List<Customer> customers;
 	private List<Order> orders;
 
+	/**
+	 * [TuDomicilio description]
+	 * @return [description]
+	 */
 	public TuDomicilio() {
 
 		restaurants = new ArrayList<Restaurant>();
@@ -33,6 +41,9 @@ public class TuDomicilio implements Serializable {
 		return orders;
 	}
 
+	/**
+	 * [sortByNameRestaurant description]
+	 */
 	public void sortByNameRestaurant() {
 		Comparator<Restaurant> acr = new AlphabeticallyAscendingRestaurantComparator();
 		Collections.sort(restaurants, acr);
@@ -41,7 +52,10 @@ public class TuDomicilio implements Serializable {
 			System.out.println((i+1) + "" + restaurants.get(i) + ".");
 		}
 	}
-	
+
+	/**
+	 * [sortByPhoneNumberOfCustomer description]
+	 */
 	public void sortByPhoneNumberOfCustomer() {
 		Collections.sort(customers);
 		
@@ -50,7 +64,13 @@ public class TuDomicilio implements Serializable {
 		}
 		
 	}
-	
+
+	/**
+	 * [searchCustomer description]
+	 * @param  customers  [description]
+	 * @param  searchName [description]
+	 * @return            [description]
+	 */
 	public Customer searchCustomer(List<Customer> customers, String searchName) {
 		int max = customers.size() - 1;
 		int min = 0;
@@ -71,12 +91,24 @@ public class TuDomicilio implements Serializable {
 				
 	}
 	
-
+	/**
+	 * [addRestaurant description]
+	 * @param na    [description]
+	 * @param ni    [description]
+	 * @param admin [description]
+	 */
 	public void addRestaurant(String na, String ni, String admin) {
 		Restaurant newRest = new Restaurant(na, ni, admin);
 		restaurants.add(newRest);
 	}
 
+	/**
+	 * [updateRestaurant description]
+	 * @param nitR     [description]
+	 * @param newna    [description]
+	 * @param newnitR  [description]
+	 * @param newadmin [description]
+	 */
 	public void updateRestaurant(String nitR, String newna, String newnitR, String newadmin) {
 		boolean found = false;
 		for (int i = 0; i < restaurants.size() && !found; i++) {
@@ -89,6 +121,15 @@ public class TuDomicilio implements Serializable {
 		}
 	}
 
+	/**
+	 * [addCustomer description]
+	 * @param typeOfId [description]
+	 * @param idN      [description]
+	 * @param na       [description]
+	 * @param lastNa   [description]
+	 * @param phoneN   [description]
+	 * @param addr     [description]
+	 */
 	public void addCustomer(IdentificationType typeOfId, String idN, String na, String lastNa, String phoneN,
 			String addr) {
 
@@ -104,6 +145,16 @@ public class TuDomicilio implements Serializable {
 		}
 	}
 
+	/**
+	 * [updateCustomer description]
+	 * @param idN       [description]
+	 * @param newTofId  [description]
+	 * @param newIdN    [description]
+	 * @param newNa     [description]
+	 * @param newLastNa [description]
+	 * @param newPhoneN [description]
+	 * @param newAddr   [description]
+	 */
 	public void updateCustomer(String idN, IdentificationType newTofId, String newIdN, String newNa, String newLastNa,
 			String newPhoneN, String newAddr) {
 		
@@ -122,12 +173,30 @@ public class TuDomicilio implements Serializable {
 		}
 	}
 
+	/**
+	 * [addOrder description]
+	 * @param co                [description]
+	 * @param fecha_y_hora      [description]
+	 * @param customerCode      [description]
+	 * @param nitResProSelected [description]
+	 * @param quantity          [description]
+	 * @param status            [description]
+	 * @param listPs            [description]
+	 */
 	public void addOrder(String co, Date fecha_y_hora, String customerCode, String nitResProSelected, String quantity, StatusOrder status, String listPs) {
 
 		Order newOr = new Order(co, fecha_y_hora, customerCode, nitResProSelected, quantity, status, listPs);
 		orders.add(newOr);
 	}
 
+	/**
+	 * [addProduct description]
+	 * @param co      [description]
+	 * @param na      [description]
+	 * @param descrip [description]
+	 * @param pri     [description]
+	 * @param nitR    [description]
+	 */
 	public void addProduct(String co, String na, String descrip, double pri, String nitR) {
 
 		boolean found = false;
@@ -141,6 +210,15 @@ public class TuDomicilio implements Serializable {
 		}
 	}
 
+	/**
+	 * [updateProduct description]
+	 * @param co         [description]
+	 * @param newCo      [description]
+	 * @param newNa      [description]
+	 * @param newDescrip [description]
+	 * @param newPri     [description]
+	 * @param nitR       [description]
+	 */
 	public void updateProduct(String co, String newCo, String newNa, String newDescrip, double newPri, String nitR) {
 		
 		boolean found = false;
