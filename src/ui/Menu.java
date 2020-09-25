@@ -71,64 +71,69 @@ public class Menu {
 	}
 
 	private void operation(int option) throws IOException {
+		
+		try {
+			switch (option) {
+			case 1:
+				addRestaurant();
+				saveData();
+				break;
 
-		switch (option) {
-		case 1:
-			addRestaurant();
-			saveData();
-			break;
+			case 2:
+				addProduct();
+				saveData();
+				break;
 
-		case 2:
-			addProduct();
-			saveData();
-			break;
+			case 3:
+				addCustomer();
+				saveData();
+				break;
 
-		case 3:
-			addCustomer();
-			saveData();
-			break;
+			case 4:
+				addOrder();
+				saveData();
+				break;
 
-		case 4:
-			addOrder();
-			saveData();
-			break;
+			case 5:
+				updateRestaurant();
+				saveData();
+				break;
 
-		case 5:
-			updateRestaurant();
-			saveData();
-			break;
+			case 6:
+				updateProduct();
+				saveData();
+				break;
 
-		case 6:
-			updateProduct();
-			saveData();
-			break;
+			case 7:
+				updateCustomer();
+				saveData();
+				break;
 
-		case 7:
-			updateCustomer();
-			saveData();
-			break;
+			case 8:
+				updateOrder();
+				saveData();
+				break;
 
-		case 8:
-			updateOrder();
-			saveData();
-			break;
+			case 9:
+				alphabeticallyAscendingRestaurant();
+				break;
 
-		case 9:
-			alphabeticallyAscendingRestaurant();
-			break;
+			case 10:
+				phoneNumberDescending();
+				break;
 
-		case 10:
-			phoneNumberDescending();
-			break;
+			case 11:
+				searchCustomer();
+				break;
 
-		case 11:
-			searchCustomer();
-			break;
+			case 12:
+				exitProgram();
+				break;
 
-		case 12:
-			exitProgram();
-			break;
-
+			}
+		}catch(NumberFormatException e) {
+			System.out.println("Debes insertar un numero");
+			sc.nextLine();
 		}
 	}
 

@@ -1,5 +1,9 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +91,23 @@ public class Restaurant implements Serializable {
 			}
 		}
 		return found;
+	}
+	
+	public void importDataProduct(String fn) throws IOException {
+		File fl = new File(fn);
+		@SuppressWarnings("resource")
+		BufferedReader br = new BufferedReader(new FileReader(fl));
+		br.readLine();
+		
+		String line = br.readLine();
+		
+		while (line != null) {
+			String[] split = line.split(" ");			
+			Product prod = new Product(split[0], split[1], split[2], Double.parseDouble(split[3]), split[4]);
+			products.add(prod);
+			line = br.readLine();
+			
+		}
 	}
 	
 	/**

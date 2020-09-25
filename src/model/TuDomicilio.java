@@ -1,8 +1,10 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -258,6 +260,10 @@ public class TuDomicilio implements Serializable {
 		}
 	}
 	
+	public void importDataProducto() {
+		
+	}
+	
 	public void importDataCustomer(String fn) throws IOException {
 		File fl = new File(fn);
 		@SuppressWarnings("resource")
@@ -291,5 +297,32 @@ public class TuDomicilio implements Serializable {
 			
 		}
 	}
+	
+//	public void exportDangerousBillboardReport(String fn) throws IOException {
+//
+//		String s = "";
+//		File fl = new File("data/dangerousBillboards");
+//		BufferedWriter br = new BufferedWriter(new FileWriter(fl));
+//		s += "==========================\n";
+//		s += "DANGEROUS BILLBOARDS REPORT\n";
+//		s += "==========================\n";
+//		s += "\n";
+//		s += "The dangerous billboards are:\n";
+//
+//		int num = 1;
+//
+//		for (int i = 0; i < billboards.size(); i++) {
+//			/*
+//			 * siendo i = 0; i++ : i = i + 1; i = 1 i+1; i=0
+//			 */
+//			if (billboards.get(i).CalculateArea() >= 160000) {
+//				s += num + "Billboard" + billboards.get(i).getBrand() + " with area "
+//						+ billboards.get(i).CalculateArea()+"\n";
+//				num += 1;
+//			}
+//		}
+//		br.write(s);
+//		br.close();
+//	}
 
 }
