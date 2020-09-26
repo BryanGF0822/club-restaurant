@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("serial")
-/**
- * 
- */
+
 public class Restaurant implements Serializable {
 	
 	private String name;
@@ -21,11 +19,11 @@ public class Restaurant implements Serializable {
 	private List<Product> products;
 
 	/**
-	 * [Restaurant description]
-	 * @param  name      [description]
-	 * @param  nit       [description]
-	 * @param  adminName [description]
-	 * @return           [description]
+	 * [Restaurant: Restaurant construction method.]
+	 * @param  name      [name to restaurant that you created]
+	 * @param  nit       [nit the restaurant that you creates]
+	 * @param  adminName [admin name to the administrator of restaurant.]
+	 * @return           [A new restaurant]
 	 */
 	public Restaurant(String name, String nit, String adminName) {
 		this.name = name;
@@ -63,13 +61,14 @@ public class Restaurant implements Serializable {
 		return products;
 	}
 
+	
 	/**
-	 * [addProduct description]
-	 * @param co      [description]
-	 * @param na      [description]
-	 * @param descrip [description]
-	 * @param pri     [description]
-	 * @param nitR    [description]
+	 * [addProduct: method of adding an product to the list.]
+	 * @param co      [code of product]
+	 * @param na      [name of product]
+	 * @param descrip [description of product]
+	 * @param pri     [price or value option]
+	 * @param nitR    [nitR to the restaurant that have this product]
 	 */
 	public void addProduct(String co, String na, String descrip, double pri, String nitR) {
 		
@@ -78,9 +77,9 @@ public class Restaurant implements Serializable {
 	}
 
 	/**
-	 * [updateProductConfirmation description]
-	 * @param  co [description]
-	 * @return    [description]
+	 * [updateProductConfirmation: method in charge of verifying that the product code exists in order to modify its attributes.]
+	 * @param  co [code of product]
+	 * @return    [true or false]
 	 */
 	public boolean updateProductConfirmation(String co) {
 		
@@ -93,6 +92,11 @@ public class Restaurant implements Serializable {
 		return found;
 	}
 	
+	/**
+	 * Import product data
+	 * @param fn link of data
+	 * @throws IOException
+	 */
 	public void importDataProduct(String fn) throws IOException {
 		File fl = new File(fn);
 		@SuppressWarnings("resource")
@@ -102,7 +106,7 @@ public class Restaurant implements Serializable {
 		String line = br.readLine();
 		
 		while (line != null) {
-			String[] split = line.split(" ");			
+			String[] split = line.split(",");			
 			Product prod = new Product(split[0], split[1], split[2], Double.parseDouble(split[3]), split[4]);
 			products.add(prod);
 			line = br.readLine();
@@ -110,10 +114,7 @@ public class Restaurant implements Serializable {
 		}
 	}
 	
-	/**
-	 * [toString description]
-	 * @return [description]
-	 */
+	
 	@Override
 	public String toString() {
 		return "Restaurant name: " + name + ", Nit: " + nit + ", AdminName:" + adminName + "\n";

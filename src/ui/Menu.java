@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import Exception.IsEmptyException;
+import Exception.TwoResWithSameNitR;
 import model.IdentificationType;
 import model.Order;
 import model.StatusOrder;
@@ -18,9 +20,9 @@ import model.TuDomicilio;
 
 public class Menu {
 
-	public static final int EXIT = 12;
+	public static final int EXIT = 14;
 
-	private Scanner sc;
+	private static Scanner sc;
 	private static TuDomicilio tuDomi;
 
 	public Menu() {
@@ -29,16 +31,26 @@ public class Menu {
 		tuDomi = new TuDomicilio();
 	}
 
-	public void startMenu() throws FileNotFoundException, ClassNotFoundException, IOException {
-		tuDomi = loadData();
-		String menu = getMenuText();
-		int option;
+	public void startMenu() {
+		try {
+			tuDomi = loadData();
+			String menu = getMenuText();
+			int option;
 
-		do {
-			System.out.println(menu);
-			option = readOption();
-			operation(option);
-		} while (option != EXIT);
+			do {
+				System.out.println(menu);
+				option = readOption();
+				operation(option);
+			} while (option != EXIT);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (IsEmptyException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private String getMenuText() {
@@ -56,10 +68,12 @@ public class Menu {
 		menu += "6. Update a product.\n";
 		menu += "7. Update a Customer.\n";
 		menu += "8. Update an order.\n";
-		menu += "9. Alphabetically ascending restaurant list\n";
-		menu += "10. Phone Number descending customer list\n";
-		menu += "11. Search a customer.\n";
-		menu += "12. Exit\n";
+		menu += "9. Import data of restaurant.\n";
+		menu += "10. Import data of product.\n";
+		menu += "11. Alphabetically ascending restaurant list\n";
+		menu += "12. Phone Number descending customer list\n";
+		menu += "13. Search a customer.\n";
+		menu += "14. Exit\n";
 		return menu;
 	}
 
@@ -70,8 +84,8 @@ public class Menu {
 		return op;
 	}
 
-	private void operation(int option) throws IOException {
-		
+	private void operation(int option) throws IsEmptyException {
+
 		try {
 			switch (option) {
 			case 1:
@@ -115,25 +129,35 @@ public class Menu {
 				break;
 
 			case 9:
+				importDataRestaurant();
+				break;
+				
+			case 10:
+				importDataProduct();
+				break;
+				
+			case 11:
 				alphabeticallyAscendingRestaurant();
 				break;
 
-			case 10:
+			case 12:
 				phoneNumberDescending();
 				break;
 
-			case 11:
+			case 13:
 				searchCustomer();
 				break;
 
-			case 12:
+			case 14:
 				exitProgram();
 				break;
 
 			}
-		}catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			System.out.println("Debes insertar un numero");
 			sc.nextLine();
+		}catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -141,26 +165,38 @@ public class Menu {
 		sc.close();
 	}
 
-	private void addRestaurant() {
-		System.out.println("Adding new restaurant...");
-		System.out.println("");
-		System.out.println("Please type nema of restaurant:\n");
-		String na = sc.nextLine();
-		System.out.println("Please type nit of restaurant:\n");
-		String ni = sc.nextLine();
-		System.out.println("Please type administrator's name:\n");
-		String admin = sc.nextLine();
+	private void addRestaurant() throws IsEmptyException {
 
-		tuDomi.addRestaurant(na, ni, admin);
-		System.out.println("Procesing...\n");
-		System.out.println("Restaurant added correctly.");
+		try {
+			System.out.println("Adding new restaurant...");
+			System.out.println("");
+			System.out.println("Please type nema of restaurant:\n");
+			String na = sc.nextLine();
+			System.out.println("Please type nit of restaurant:\n");
+			String ni = sc.nextLine();
+			System.out.println("Please type administrator's name:\n");
+			String admin = sc.nextLine();
 
-		for (int i = 0; i < tuDomi.getRestaurants().size(); i++) {
-			System.out.println(tuDomi.getRestaurants().get(i));
+			if (na.equals("") || ni.equals("") || admin.equals("")) {
+				throw new IsEmptyException();
+			}
+
+			tuDomi.addRestaurant(na, ni, admin);
+			System.out.println("Procesing...\n");
+			System.out.println("Restaurant added correctly.");
+
+//			for (int i = 0; i < tuDomi.getRestaurants().size(); i++) {
+//				System.out.println(tuDomi.getRestaurants().get(i));
+//			}
+		} catch (IsEmptyException e) {
+			System.out.println(e.getMessage());
+			sc.nextLine();
+		}catch (TwoResWithSameNitR e) {
+			System.out.println(e.getMessage());
 		}
 	}
-
-	private void updateRestaurant() {
+	
+	private void updateRestaurant() throws IsEmptyException {
 		System.out.println("Loading...");
 		System.out.println("");
 		System.out.println("please type the nit restaurant that you want to update:");
@@ -172,15 +208,19 @@ public class Menu {
 		System.out.println("Please type the admin name of restaurant:");
 		String newAdmin = sc.nextLine();
 
+		if (nitR.equals("") || newNa.equals("") || newNitR.equals("") || newAdmin.equals("")) {
+			throw new IsEmptyException();
+		}
+		
 		tuDomi.updateRestaurant(nitR, newNa, newNitR, newAdmin);
 		System.out.println("Data was updated correctly.");
 
-		for (int i = 0; i < tuDomi.getRestaurants().size(); i++) {
-			System.out.println(tuDomi.getRestaurants().get(i));
-		}
+//		for (int i = 0; i < tuDomi.getRestaurants().size(); i++) {
+//			System.out.println(tuDomi.getRestaurants().get(i));
+//		}
 	}
 
-	private void addProduct() {
+	private void addProduct() throws IsEmptyException {
 		System.out.println("Adding new product...");
 		System.out.println("");
 		System.out.println("Please type code of product: ");
@@ -194,12 +234,16 @@ public class Menu {
 		System.out.println("Please type the Nit of restaurant: ");
 		String nitR = sc.nextLine();
 
+		if (co.equals("") || na.equals("") || descrip.equals("") || pri == 0 || nitR.equals("")) {
+			throw new IsEmptyException();
+		}
+		
 		tuDomi.addProduct(co, na, descrip, pri, nitR);
 		System.out.println("Procesing...\n");
 		System.out.println("Product added correctly.");
 	}
 
-	private void updateProduct() {
+	private void updateProduct() throws IsEmptyException {
 		System.out.println("Loading...");
 		System.out.println("");
 		System.out.println("Please type the code of product that you want to update:");
@@ -216,12 +260,16 @@ public class Menu {
 		System.out.println("Please type the nit of the restaurant where this product belongs:");
 		String nitR = sc.nextLine();
 
+		if (co.equals("") || newCo.equals("") || newNa.equals("") || newDescrip.equals("") || newPri == 0 || nitR.equals("")) {
+			throw new IsEmptyException();
+		}
+		
 		tuDomi.updateProduct(co, newCo, newNa, newDescrip, newPri, nitR);
 		System.out.println("Data was updated correctly");
 
 	}
 
-	private void addCustomer() {
+	private void addCustomer() throws IsEmptyException {
 		System.out.println("Adding new customer...");
 		System.out.println("");
 		System.out.println("Please select your identification type:");
@@ -256,10 +304,18 @@ public class Menu {
 		System.out.println("Please type your address :");
 		String addr = sc.nextLine();
 
+		if (idN.equals("") || na.equals("") || lastNa.equals("") || phoneN.equals("") || addr.equals("")) {
+			throw new IsEmptyException();
+		}
+		
 		tuDomi.addCustomer(typeOfId, idN, na, lastNa, phoneN, addr);
+		
+		for (int i = 0; i < tuDomi.getCustomers().size(); i++) {
+			System.out.println(tuDomi.getCustomers().get(i));
+		}
 	}
 
-	private void updateCustomer() {
+	private void updateCustomer() throws IsEmptyException {
 		System.out.println("Loading...");
 		System.out.println("");
 		System.out.println("Please type the id number to the customer that you want to update:");
@@ -296,11 +352,15 @@ public class Menu {
 		System.out.println("Please type your address:");
 		String newAddr = sc.nextLine();
 
+		if (idN.equals("") || newIdN.equals("") || newNa.equals("") || newLastNa.equals("") || newPhoneN.equals("") || newAddr.equals("")) {
+			throw new IsEmptyException();
+		}
+		
 		tuDomi.updateCustomer(idN, newTofId, newIdN, newNa, newLastNa, newPhoneN, newAddr);
 		System.out.println("Data was updated correctly.");
 	}
 
-	private void addOrder() {
+	private void addOrder() throws IsEmptyException {
 		System.out.println("Please type your customer id number:");
 		String idCo = sc.nextLine();
 
@@ -356,6 +416,10 @@ public class Menu {
 
 				}
 
+				if (orderCode.equals("") || trueCode.equals("") || nitRestaurantOrder.equals("") || quanty.equals("")) {
+					throw new IsEmptyException();
+				}
+				
 				tuDomi.addOrder(orderCode, dayAndTime, trueCode, nitRestaurantOrder, quanty, status, listPS);
 			}
 		}
@@ -367,7 +431,7 @@ public class Menu {
 		int answer = 0;
 		boolean found = false;
 		List<Order> orders = tuDomi.getOrders();
-		
+
 		for (int i = 0; i < orders.size() && !found; i++) {
 			if (orders.get(i).getCode().compareTo(searchCode) == 0) {
 				if (orders.get(i).getStatus() == StatusOrder.SOLICITADO) {
@@ -425,10 +489,14 @@ public class Menu {
 		tuDomi.sortByPhoneNumberOfCustomer();
 	}
 
-	private void searchCustomer() {
-		System.out.println("Please type name of customer that yu want to search:");
+	private void searchCustomer() throws IsEmptyException {
+		System.out.println("Please type name of customer that you want to search:");
 		String searchName = sc.nextLine();
-
+		
+		if (searchName.equals("")) {
+			throw new IsEmptyException();
+		}
+		
 		long start = System.currentTimeMillis();
 		tuDomi.searchCustomer(tuDomi.getCustomers(), searchName);
 		long end = System.currentTimeMillis();
@@ -436,6 +504,19 @@ public class Menu {
 		System.out.println("start:" + start);
 		System.out.println("end:" + end);
 		System.out.println("Time of search: " + (end - start));
+	}
+
+	private static void importDataProduct() throws IOException {
+		System.out.println("Please type nit restaurant that you want add list of products:");
+		String nitR = sc.nextLine();
+		String dataLink = "data/product.csv";
+
+		tuDomi.importDataProduct(nitR, dataLink);
+	}
+	
+	private static void importDataRestaurant() throws IOException {
+		String dataLink = "data/restaurant.csv";
+		tuDomi.importDataRestaurant(dataLink);
 	}
 
 	private static void saveData() throws IOException {

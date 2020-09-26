@@ -3,9 +3,7 @@ package model;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-/**
- * 
- */
+
 public class Product implements Serializable{
 	
 	private String code;
@@ -15,13 +13,13 @@ public class Product implements Serializable{
 	private String nitRestaurant;
 	
 	/**
-	 * [Product description]
-	 * @param  code          [description]
-	 * @param  name          [description]
-	 * @param  description   [description]
-	 * @param  price         [description]
-	 * @param  nitRestaurant [description]
-	 * @return               [description]
+	 * [Product: Method of construction of a product]
+	 * @param  code          [Code of product]
+	 * @param  name          [Name of product]
+	 * @param  description   [little description of product]
+	 * @param  price         [cost to order this product]
+	 * @param  nitRestaurant [nit of restaurant that sells this product]
+	 * @return               [object product with all their attributes ]
 	 */
 	public Product(String code, String name, String description, double price, String nitRestaurant) {
 		this.code = code;
@@ -72,8 +70,8 @@ public class Product implements Serializable{
 	}
 
 	/**
-	 * [toString description]
-	 * @return [description]
+	 * [toString: Method of construction of a product]
+	 * @return [String with all attributes in text format]
 	 */
 	@Override
 	public String toString() {

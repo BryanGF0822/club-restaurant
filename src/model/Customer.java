@@ -3,9 +3,7 @@ package model;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-/**
- * 
- */
+
 public class Customer implements Serializable, Comparable<Customer>{
 
 	private IdentificationType typeOfId;
@@ -15,14 +13,14 @@ public class Customer implements Serializable, Comparable<Customer>{
 	private String phoneNumber;
 	private String address;
 	/**
-	 * [Customer description]
-	 * @param  typeOfId    [description]
-	 * @param  idNumber    [description]
-	 * @param  name        [description]
-	 * @param  lastName    [description]
-	 * @param  phoneNumber [description]
-	 * @param  address     [description]
-	 * @return             [description]
+	 * [Customer: customer class construction method]
+	 * @param  typeOfId    [type of id that user can select.]
+	 * @param  idNumber    [id number of user added]
+	 * @param  name        [name of customer added]
+	 * @param  lastName    [last name of user added]
+	 * @param  phoneNumber [phone number of user]
+	 * @param  address     [address of house customer when ]
+	 * @return             [Complete object Customer with all their attributes.]
 	 */
 	public Customer(IdentificationType typeOfId, String idNumber, String name, String lastName, String phoneNumber,
 			String address) {
@@ -82,10 +80,6 @@ public class Customer implements Serializable, Comparable<Customer>{
 		this.address = address;
 	}
 
-	/**
-	 * [toString description]
-	 * @return [description]
-	 */
 	@Override
 	public String toString() {
 		return "Customer typeOfId: " + typeOfId + ", idNumber: " + idNumber + ", name: " + name + ", lastName: " + lastName
@@ -93,9 +87,9 @@ public class Customer implements Serializable, Comparable<Customer>{
 	}
 
 	/**
-	 * [compareTo description]
-	 * @param  o [description]
-	 * @return   [description]
+	 * [compareTo: compareTo() method for ordering from customers in certain ways.]
+	 * @param  o [client with whom I will compare you in that position on the list]
+	 * @return   [an ordered list of customers]
 	 */
 	@Override
 	public int compareTo(Customer o) {

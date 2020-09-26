@@ -1,23 +1,21 @@
 package model;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import Exception.TwoResWithSameNitR;
+
 import java.util.Date;
 
 @SuppressWarnings("serial")
 
-/**
- * 
- */
 public class TuDomicilio implements Serializable {
 
 	private List<Restaurant> restaurants;
@@ -25,8 +23,7 @@ public class TuDomicilio implements Serializable {
 	private List<Order> orders;
 
 	/**
-	 * [TuDomicilio description]
-	 * @return [description]
+	 * [TuDomicilio: Main class of the model, in charge of managing all the income to the other classes of the model.
 	 */
 	public TuDomicilio() {
 
@@ -48,7 +45,7 @@ public class TuDomicilio implements Serializable {
 	}
 
 	/**
-	 * [sortByNameRestaurant description]
+	 * [sortByNameRestaurant: Sorting algorithm by restaurant name]
 	 */
 	public void sortByNameRestaurant() {
 		Comparator<Restaurant> acr = new AlphabeticallyAscendingRestaurantComparator();
@@ -60,7 +57,7 @@ public class TuDomicilio implements Serializable {
 	}
 
 	/**
-	 * [sortByPhoneNumberOfCustomer description]
+	 * [sortByPhoneNumberOfCustomer: Sorting algorithm by restaurant name]
 	 */
 	public void sortByPhoneNumberOfCustomer() {
 		Collections.sort(customers);
@@ -72,10 +69,10 @@ public class TuDomicilio implements Serializable {
 	}
 
 	/**
-	 * [searchCustomer description]
-	 * @param  customers  [description]
-	 * @param  searchName [description]
-	 * @return            [description]
+	 * [searchCustomer: Efficient search method for when a customer is needed.]
+	 * @param  customers  [customers list]
+	 * @param  searchName [name of customer found]
+	 * @return            [return the customer y the position found           S]
 	 */
 	public Customer searchCustomer(List<Customer> customers, String searchName) {
 		int max = customers.size() - 1;
@@ -98,22 +95,28 @@ public class TuDomicilio implements Serializable {
 	}
 	
 	/**
-	 * [addRestaurant description]
-	 * @param na    [description]
-	 * @param ni    [description]
-	 * @param admin [description]
+	 * [addRestaurant: Method that allows you to add a restaurant to the list.]
+	 * @param na    [name of restaurant you would like to add to the list.]
+	 * @param ni    [conteins nit of this new restaurant ]
+	 * @param admin [name of admin the new restaurant]
+	 * @throws TwoResWithSameNitR is impossible that 
 	 */
-	public void addRestaurant(String na, String ni, String admin) {
+	public void addRestaurant(String na, String ni, String admin) throws TwoResWithSameNitR {
 		Restaurant newRest = new Restaurant(na, ni, admin);
+		for (int i = 0; i < restaurants.size(); i++) {
+			if (restaurants.get(i).getNit().compareTo(ni) == 0) {
+				throw new TwoResWithSameNitR();
+			}
+		}
 		restaurants.add(newRest);
 	}
 
 	/**
-	 * [updateRestaurant description]
-	 * @param nitR     [description]
-	 * @param newna    [description]
-	 * @param newnitR  [description]
-	 * @param newadmin [description]
+	 * [updateRestaurant: Method that allows you to add a restaurant to the list.]
+	 * @param nitR     [nit of restaurant that you want to update]
+	 * @param newna    [the new name that you change the actual name]
+	 * @param newnitR  [the new code that you want change]
+	 * @param newadmin [the new admin name to the new administration area]
 	 */
 	public void updateRestaurant(String nitR, String newna, String newnitR, String newadmin) {
 		boolean found = false;
@@ -128,13 +131,13 @@ public class TuDomicilio implements Serializable {
 	}
 
 	/**
-	 * [addCustomer description]
-	 * @param typeOfId [description]
-	 * @param idN      [description]
-	 * @param na       [description]
-	 * @param lastNa   [description]
-	 * @param phoneN   [description]
-	 * @param addr     [description]
+	 * [addCustomer :method in charge of adding a client to the corresponding list.]
+	 * @param typeOfId [type of identification to the customer]
+	 * @param idN      [number of id to de customer]
+	 * @param na       [name of custom that you want to add]
+	 * @param lastNa   [name to the customer that you want to add]
+	 * @param phoneN   [phone number to the customer addeed]
+	 * @param addr     [address with location to the customer]
 	 */
 	public void addCustomer(IdentificationType typeOfId, String idN, String na, String lastNa, String phoneN,
 			String addr) {
@@ -152,14 +155,14 @@ public class TuDomicilio implements Serializable {
 	}
 
 	/**
-	 * [updateCustomer description]
-	 * @param idN       [description]
-	 * @param newTofId  [description]
-	 * @param newIdN    [description]
-	 * @param newNa     [description]
-	 * @param newLastNa [description]
-	 * @param newPhoneN [description]
-	 * @param newAddr   [description]
+	 * [updateCustomer: method in charge of updating all customer data. ]
+	 * @param idN       [the actual idN to search if this customer exist]
+	 * @param newTofId  [new type of id to change the actual name]
+	 * @param newIdN    [new id number to change the actual name]
+	 * @param newNa     [new name to change the actual name]
+	 * @param newLastNa [new last name to change the actual name]
+	 * @param newPhoneN [A little description of the change the actual]
+	 * @param newAddr   [addess to change the actual customer]
 	 */
 	public void updateCustomer(String idN, IdentificationType newTofId, String newIdN, String newNa, String newLastNa,
 			String newPhoneN, String newAddr) {
@@ -179,16 +182,6 @@ public class TuDomicilio implements Serializable {
 		}
 	}
 
-	/**
-	 * [addOrder description]
-	 * @param co                [description]
-	 * @param fecha_y_hora      [description]
-	 * @param customerCode      [description]
-	 * @param nitResProSelected [description]
-	 * @param quantity          [description]
-	 * @param status            [description]
-	 * @param listPs            [description]
-	 */
 	public void addOrder(String co, Date fecha_y_hora, String customerCode, String nitResProSelected, String quantity, StatusOrder status, String listPs) {
 
 		Order newOr = new Order(co, fecha_y_hora, customerCode, nitResProSelected, quantity, status, listPs);
@@ -196,12 +189,12 @@ public class TuDomicilio implements Serializable {
 	}
 
 	/**
-	 * [addProduct description]
-	 * @param co      [description]
-	 * @param na      [description]
-	 * @param descrip [description]
-	 * @param pri     [description]
-	 * @param nitR    [description]
+	 * [addProduct: method of adding an product to the list.]
+	 * @param co      [code of product]
+	 * @param na      [name of product]
+	 * @param descrip [description of product]
+	 * @param pri     [price or value option]
+	 * @param nitR    [nitR to the restaurant that have this product]
 	 */
 	public void addProduct(String co, String na, String descrip, double pri, String nitR) {
 
@@ -217,13 +210,12 @@ public class TuDomicilio implements Serializable {
 	}
 
 	/**
-	 * [updateProduct description]
-	 * @param co         [description]
-	 * @param newCo      [description]
-	 * @param newNa      [description]
-	 * @param newDescrip [description]
-	 * @param newPri     [description]
-	 * @param nitR       [description]
+	 * [updateProduct: Method of updating products in a list]
+	 * @param co         [the code of product]
+	 * @param newCo      [new code of product to change the actual code]
+	 * @param newNa      [new name to change the actual name]
+	 * @param newDescrip [new description to change the actual]
+	 * @param newPri     [new price to change to the actual]
 	 */
 	public void updateProduct(String co, String newCo, String newNa, String newDescrip, double newPri, String nitR) {
 		
@@ -252,16 +244,27 @@ public class TuDomicilio implements Serializable {
 		String line = br.readLine();
 		
 		while (line != null) {
-			String[] split = line.split(" ");			
-			Restaurant restau = new Restaurant(split[0], split[1], split[3]);
+			String[] split = line.split(",");			
+			Restaurant restau = new Restaurant(split[0], split[1], split[2]);
 			restaurants.add(restau);
 			line = br.readLine();
 			
 		}
 	}
 	
-	public void importDataProducto() {
-		
+	/**
+	 * method in charge of importing product data from a csv file that will be read as flat files to generate products.
+	 * @param nitR nit restauranto where de program find to search de file
+	 * @param fn link of data
+	 * @throws IOException
+	 */
+	public void importDataProduct(String nitR, String fn) throws IOException {
+		boolean found = false;
+		for (int i = 0; i < restaurants.size() && !found; i++) {
+			if (restaurants.get(i).getNit().compareTo(nitR) == 0) {
+				restaurants.get(i).importDataProduct(fn);
+			}
+		}
 	}
 	
 	public void importDataCustomer(String fn) throws IOException {
@@ -273,7 +276,7 @@ public class TuDomicilio implements Serializable {
 		String line = br.readLine();
 		
 		while (line != null) {
-			String[] split = line.split(" ");			
+			String[] split = line.split(",");			
 			Customer custo = new Customer(IdentificationType.valueOf(split[0]), split[1], split[2], split[3], split[4], split[5]);
 			customers.add(custo);
 			line = br.readLine();
@@ -290,7 +293,7 @@ public class TuDomicilio implements Serializable {
 		String line = br.readLine();
 		
 		while (line != null) {
-			String[] split = line.split(" ");			
+			String[] split = line.split(",");			
 			Order or = new 	Order(split[0], java.sql.Date.valueOf(split[1]), split[2], split[3], split[4], StatusOrder.valueOf(split[5]), split[6]) ;
 			orders.add(or);
 			line = br.readLine();
