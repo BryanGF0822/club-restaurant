@@ -23,7 +23,7 @@ public class TuDomicilio implements Serializable {
 	private List<Order> orders;
 
 	/**
-	 * [TuDomicilio: Main class of the model, in charge of managing all the income to the other classes of the model.
+	 * [TuDomicilio: Main class of the model, in charge of managing all the income to the other classes of the model.]
 	 */
 	public TuDomicilio() {
 
